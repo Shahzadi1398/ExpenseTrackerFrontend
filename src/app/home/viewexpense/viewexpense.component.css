@@ -1,0 +1,83 @@
+mat-card-title{
+    font-size: 24px;
+    font-weight: 350;
+    font-family: "Roboto","Helvetica Neue",sans-serif;
+    position: relative;
+    top: 10px;
+}
+
+.row{
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.data-value {
+  font-size: 40px;
+  margin: 30px;
+}
+
+.metric-summary {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-summary > div > * {
+  margin-bottom: 20px;
+}
+
+.conatiner{
+  width: 100% !important;
+  margin: 0 auto;
+  display: block;
+}
+
+.table-container {
+    max-height: 500px;
+    overflow: auto;
+}
+  
+  .table-container table {
+    width: 100%;
+  }
+  
+  .table-container td.mat-cell,
+  .table-container td.mat-footer-cell,
+  .table-container th.mat-header-cell {
+    padding: 15px;
+  }
+  
+  .column-width {
+    flex: 0 0 35%;
+  }
+
+  .fab {
+    position: fixed;
+    bottom: 10%;
+    right: 5%;
+    z-index: 100;
+    color: #fff;
+    background-color: #0288d1;
+  }
+
+
+  .month-select, .year-select {
+    width: 120px; 
+    margin-right: 12px;
+  }
+  
+  .mat-form-field {
+    font-size: 14px; 
+  }
+
+  .no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+  }
+  
+  .no-data .col-12 {
+    text-align: center;
+  }
+  

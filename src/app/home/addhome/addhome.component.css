@@ -1,0 +1,117 @@
+mat-card-title{
+    font-size: 24px;
+    font-weight: 350;
+    position: absolute;
+    font-family: "Roboto","Helvetica Neue",sans-serif;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.row{
+    display: flex;
+    margin-top: 50px;
+}
+
+.save-button {
+    background-color: #0288d1;
+    color: white; 
+}
+
+.reset-button{
+    color: #0288d1;
+}
+
+.mat-form-field {
+    width: 100%; 
+}
+  
+.mat-form-field-wrapper {
+    margin-bottom: 20px; 
+}
+
+.fab {
+    position: fixed;
+    bottom: 10%;
+    right: 5%;
+    z-index: 100;
+    color: #fff;
+    background-color: #0288d1;
+  }
+
+.button{
+    background-color: #0288d1;
+    color: white;
+}
+  #home .button.fab {
+    position: fixed;
+    bottom: 10%;
+    right: 5%;
+    z-index: 100;
+  }
+  
+  #home .account {
+    font-size: 80px;
+    color: #2196F3; 
+  }
+  
+  #home .loading-progress-bar {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  
+  #home label {
+    padding-top: 20px;
+    font-weight: bold;
+  }
+  
+  #home .info-alignment {
+    text-align: center;
+  }
+  
+  #home .info-content {
+    font-size: 18px;
+    font-weight: 100;
+  }
+  
+  #home .user-summary .user-summary__section {
+    padding: 0 20px;
+  }
+  
+  #home .user-summary .divider {
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  #home .mat-icon {
+    width: inherit;
+  }
+  
+  #home mat-step-header .mat-step-header .mat-step-icon-selected {
+    background-color: #2196F3 !important; 
+  }
+  
+  #home .mat-horizontal-content-container {
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .table-container {
+    max-height: 500px;
+    overflow: auto;
+  }
+  
+  .table-container table {
+    width: 100%;
+  }
+  
+  .table-container td.mat-cell,
+  .table-container td.mat-footer-cell,
+  .table-container th.mat-header-cell {
+    padding: 15px;
+  }
+  
+  .column-width {
+    flex: 0 0 35%;
+  }
+
+  
+  

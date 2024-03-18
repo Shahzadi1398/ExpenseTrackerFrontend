@@ -1,0 +1,314 @@
+<div class="container-fluid" id="home">
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <mat-card>
+                <mat-card-title>User Info</mat-card-title>
+                <mat-card-header>
+                    <mat-card-subtitle></mat-card-subtitle>
+                </mat-card-header>
+                <ng-container>
+                    <mat-card-content>
+                        <div class="row">
+                            <div class="col-sm-12 info-alignment justify-content-center">
+                                <mat-icon class="account">account_circle</mat-icon>
+                                <div class="justify-content-center">
+                                    <span class="info-content">{{firstName}} {{lastName}}</span>
+                                </div>
+                                <div class="d-flex justify-content-around user-summary">
+                                    <div class="user-summary__section">
+                                        <label class="text-muted">User Since</label>
+                                        <div class="info-content">{{entryDt}}</div>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <div class="user-summary__section">
+                                        <label class="text-muted">Expenses logged</label>
+                                        <div class="info-content">{{expenseCount}}</div>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <div class="user-summary__section">
+                                        <label class="text-muted">Last Login</label>
+                                        <div class="info-content">{{lastLogin}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions></mat-card-actions>
+                </ng-container>
+            </mat-card>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <mat-card>
+                <mat-card-title>Expense Categories</mat-card-title>
+                <mat-card-header>
+                    <mat-card-subtitle style="margin-top: 30px;">Add/Remove Expenses Categories</mat-card-subtitle>
+                </mat-card-header>
+                <ng-container>
+                    <mat-card-content>
+                        <mat-chip-list #chipList aria-label="Fruit selection">
+                            <mat-chip *ngFor="let e of expensesDataList" [selectable]="true" [removable]="true" (removed)="removeExpenses(e)">
+                              {{ e.expensesName }}
+                              <mat-icon matChipRemove>cancel</mat-icon>
+                            </mat-chip>
+                        </mat-chip-list>                          
+                        <mat-form-field style="margin-top: 10px;">
+                            <input 
+                            autocomplete="off" 
+                            matInput 
+                            [(ngModel)]="expensesName" 
+                            placeholder="Enter Category name" 
+                            (input)="onInputChanged()"
+                            />
+                          </mat-form-field>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <div class="d-flex justify-content-end">
+                            <button mat-button (click)="resetExpenses()" [disabled]="saveButtonDisabled" [ngClass]="{'reset-button': areButtonsEnabled}">Reset
+                            </button>
+                            <button mat-raised-button (click)="saveExpenses(expensesName)" [disabled]="saveButtonDisabled" [ngClass]="{'save-button': areButtonsEnabled}">
+                              <mat-icon>save</mat-icon>
+                              <span>Save</span></button>
+                        </div>
+                    </mat-card-actions>
+                </ng-container>
+            </mat-card>
+        </div>
+    </div>    
+       
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <mat-card>
+                <mat-card-title>Enter Expense</mat-card-title>
+                <mat-card-header>
+                    <mat-card-subtitle style="margin-top: 30px;">Enter required fields to save a new expense</mat-card-subtitle>
+                </mat-card-header>
+                <form #expenseFormRef="ngForm" (ngSubmit)="saveExpenses1(expenseFormRef, $event)">
+                    <ng-container>
+                        <mat-card-content>    
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <mat-form-field>
+                                    <input 
+                                    autocomplete="off" 
+                                    matInput 
+                                    [(ngModel)]="expenseName" 
+                                    placeholder="Expense name" 
+                                    #expenseNameInput="ngModel"
+                                    name="expenseName"
+                                    type="text"
+                                    required minlength="4"
+                                    (input)="onInputChanged1()"
+                                    />
+                                  </mat-form-field>
+                                  <div *ngIf="expenseNameInput.errors && (expenseNameInput.dirty || expenseNameInput.touched)" class="alert alert-danger">
+                                    <small>Name is required (minimum 4 characters).</small>
+                                  </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <mat-form-field>
+                                    <input 
+                                    autocomplete="off" 
+                                    matInput 
+                                    [(ngModel)]="amount" 
+                                    placeholder="Amount" 
+                                    #amountInput="ngModel"
+                                    type="number"
+                                    name="amount"
+                                    min="1"
+                                    (input)="onInputChanged1()"
+                                    required
+                                    />
+                                  </mat-form-field>
+                                  <div *ngIf="amountInput.errors && (amountInput.dirty || amountInput.touched)" class="alert alert-danger">
+                                    <small>Amount is required (positive amount, max 2 decimal places).</small>
+                                  </div>
+                            </div>
+                        </div>                                 
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <mat-form-field>
+                                    <input matInput [matDatepicker]="picker" placeholder="Expense date" [(ngModel)]="expenseDate"  (input)="onInputChanged1()"
+                                    name="expenseDate" #expenseDateInput="ngModel" required>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker touchUi #picker></mat-datepicker>
+                                  </mat-form-field>
+                                  <div *ngIf="expenseDateInput.errors && (expenseDateInput.dirty || expenseDateInput.touched)" class="alert alert-danger">
+                                    <small>
+                                      Date is required.
+                                    </small>
+                                  </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <mat-form-field>
+                                    <mat-label>Expense category</mat-label>
+                                    <mat-select [(ngModel)]="expenseCategory" name="expenseCategory" #expenseCategoryInput="ngModel" required  (input)="onInputChanged1()">
+                                      <mat-option *ngFor="let category of expensesDataList" [value]="category.expensesName">
+                                        {{category.expensesName}}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                  <div *ngIf="expenseCategoryInput.errors && (expenseCategoryInput.dirty || expenseCategoryInput.touched)" class="alert alert-danger">
+                                    <small>Category is required.</small>
+                                  </div>
+                            </div>
+                        </div>                                   
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <mat-form-field>
+                                    <mat-label>Payment category</mat-label>
+                                    <mat-select [(ngModel)]="paymentCategory" name="paymentCategory" #paymentCategoryInput="ngModel" required  (input)="onInputChanged1()">
+                                      <mat-option *ngFor="let category of paymentDataList" [value]="category.paymentName">
+                                        {{category.paymentName}}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                  <div *ngIf="paymentCategoryInput.errors && (paymentCategoryInput.dirty || paymentCategoryInput.touched)" class="alert alert-danger">
+                                    <small>Payment is required.</small>
+                                  </div>
+                            </div>     
+                        </div>                            
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <mat-form-field>
+                                    <textarea matInput placeholder="Comments" [(ngModel)]="expenseComments" name="expenseComments" (input)="onInputChanged1()"></textarea>
+                                </mat-form-field>
+                            </div>
+                        </div>                        
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <div class="d-flex justify-content-end">
+                                <button mat-button (click)="resetExpenses1()" [disabled]="saveButtonDisabled1" [ngClass]="{'reset-button': areButtonsEnabled1}">Reset
+                                </button>
+                                <button mat-raised-button (click)="saveExpenses1(expenseFormRef, $event)" [disabled]="!expenseFormRef.valid" [ngClass]="{'save-button':  expenseFormRef.valid}">
+                                  <mat-icon>save</mat-icon>
+                                  <span>Save</span></button>
+                            </div>
+                        </mat-card-actions>
+                    </ng-container>
+                </form>
+       
+            </mat-card>
+        </div>
+    </div>
+
+    <div class="row">
+       <div class="col-12 col-md-6 offset-md-3" style="margin-bottom: 50px;">
+        <mat-card>
+            <mat-card-title>Import CSV Expenses</mat-card-title>
+            <mat-card-content>
+                <div class="my-5">
+                    <mat-horizontal-stepper  #stepper linear (selectionChange)="onStep($event)">
+                        <mat-step label="Import">
+                            <div style="margin-bottom: 20px;">
+                                <div class="table-container">
+                                    <table mat-table [dataSource]="dataSource">
+                                        <ng-container matColumnDef="Date">
+                                          <th mat-header-cell *matHeaderCellDef> Date </th>
+                                          <td mat-cell *matCellDef="let item"> {{ item.Date }} </td>
+                                        </ng-container>                                      
+                                        <ng-container matColumnDef="Description">
+                                          <th mat-header-cell *matHeaderCellDef> Expense Name </th>
+                                          <td mat-cell *matCellDef="let item"> {{ item['Expense Name']}} </td>
+                                        </ng-container>                                      
+                                        <ng-container matColumnDef="Amount">
+                                          <th mat-header-cell *matHeaderCellDef> Amount </th>
+                                          <td mat-cell *matCellDef="let item"> {{ item.Amount }} </td>
+                                        </ng-container>                                      
+                                        <ng-container matColumnDef="ExpensesType">
+                                            <th mat-header-cell *matHeaderCellDef> Expenses Category </th>
+                                            <td mat-cell *matCellDef="let item"> {{ item['Expenses Category'] }} </td>
+                                          </ng-container>
+                                        <ng-container matColumnDef="CategoryType">
+                                          <th mat-header-cell *matHeaderCellDef> Payment Type </th>
+                                          <td mat-cell *matCellDef="let item"> {{ item['Payment Type'] }} </td>
+                                        </ng-container>                                      
+                                        <ng-container matColumnDef="Comments">
+                                          <th mat-header-cell *matHeaderCellDef> Comments </th>
+                                          <td mat-cell *matCellDef="let item"> {{ item.Comments }} </td>
+                                        </ng-container>                                      
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                    </table>                                      
+                                  </div>                                                                                                        
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="d-flex justify-content-center">
+                                    <h2>                                       
+                                       Upload the file into above format Only
+                                    </h2>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <button mat-raised-button class="button" (click)="fileInput.click()">
+                                        <mat-icon>insert_drive_file</mat-icon>
+                                        Import Expenses File
+                                    </button>
+                                    <input type="file" #fileInput style="display:none;" accept=".xlsx" (change)="onFileSelected($event)">
+                                </div>   
+                            </div>                                                                                                           
+                        </mat-step>
+                        <mat-step label="Review Expenses Imported">
+                            <div style="margin-bottom: 20px; margin-top: 20px;">
+                                <div class="table-container">
+                                    <mat-table #table [dataSource]="dataSource1" style="height: 150px;">                               
+                                        <ng-container *ngFor="let header of displayedColumns1" [matColumnDef]="header">
+                                            <mat-header-cell *matHeaderCellDef>{{ header }}</mat-header-cell>
+                                            <mat-cell *matCellDef="let row">                                          
+                                                <ng-container *ngIf="header !== 'Date'; else formatDateCell">
+                                                    {{ row[header] }}
+                                                </ng-container>
+                                                <ng-template #formatDateCell>
+                                                    {{ formatDate1(row[header]) }}
+                                                </ng-template>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
+                                        <mat-row *matRowDef="let row; columns: displayedColumns1"></mat-row>
+                                    </mat-table>
+                                </div>
+                            </div>    
+                            <div class="d-flex flex-column">
+                                <div class="d-flex justify-content-center">
+                                    <h2>                                       
+                                        Upload the file into database by clicking below button
+                                    </h2>
+                                    </div>
+                               <div class="d-flex justify-content-center">
+                                    <button mat-raised-button class="button" (click)="uploadData()">
+                                        <mat-icon>upload</mat-icon>
+                                        Upload
+                                    </button>                                   
+                                </div> 
+                            </div>
+                        </mat-step>
+                        <mat-step label="All Done">
+                            <div class="d-flex flex-column">
+                                <div class="d-flex justify-content-center">
+                                    <h2>
+                                        <mat-icon>check_circle_outline</mat-icon>
+                                        Expenses Saved.
+                                    </h2>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <button mat-raised-button (click)="navigateToViewExpenses()" class="button">
+                                        <mat-icon>insert_chart</mat-icon>
+                                        View Expenses Dashboard
+                                    </button>
+                                </div>
+                            </div>
+                        </mat-step>
+                    </mat-horizontal-stepper>
+                </div>
+            </mat-card-content>
+        </mat-card>
+       </div>
+    </div>
+
+    <button mat-fab class="fab" (click)="navigateToViewExpenses()">
+        <mat-icon>insert_chart</mat-icon>
+    </button>
+
+</div>

@@ -1,0 +1,172 @@
+h1{
+    font-size: 4.5rem;
+    font-weight: 300;
+    line-height: 1.2; 
+    letter-spacing: -.02em;
+}
+
+.mat-input-element:focus {
+    caret-color: #0288d1 !important; 
+}
+
+.mat-form-field.mat-form-field-appearance-outline .mat-form-field-label {
+    display: none;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-outline-start,
+::ng-deep .mat-form-field.mat-focused .mat-form-field-outline-end,
+::ng-deep .mat-form-field.mat-focused .mat-form-field-outline-gap {
+    border-color: #0288d1 !important;
+}
+
+.enabled {
+    cursor: pointer;
+    color: white;
+    background-color: #0288d1;
+    font-family: "Roboto","Helvetica Neue",sans-serif;
+}
+
+.disabled {
+    cursor: not-allowed;
+    background-color: rgba(0, 0, 0, 0.12);
+    font-family: "Roboto","Helvetica Neue",sans-serif;
+}
+
+.click-here {
+    color: #0288d1; 
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    border: transparent;
+}
+
+.click-here:hover {
+    text-decoration: underline;
+}
+
+::ng-deep .custom-outline .mat-form-field-outline {
+    color: #dddbdb !important;
+}
+
+::ng-deep .custom-outline:hover .mat-form-field-outline {
+    color: black !important; 
+}
+
+.loading-overlay {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.center {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eee;
+  }
+
+  .wave {
+    width: 5px;
+    height: 100px;
+    background: linear-gradient(45deg, #0288d1, #0288d1);
+    margin: 10px;
+    animation: wave 1s linear infinite;
+    border-radius: 20px;
+  }
+  .wave:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  .wave:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  .wave:nth-child(4) {
+    animation-delay: 0.3s;
+  }
+  .wave:nth-child(5) {
+    animation-delay: 0.4s;
+  }
+  .wave:nth-child(6) {
+    animation-delay: 0.5s;
+  }
+  .wave:nth-child(7) {
+    animation-delay: 0.6s;
+  }
+  .wave:nth-child(8) {
+    animation-delay: 0.7s;
+  }
+  .wave:nth-child(9) {
+    animation-delay: 0.8s;
+  }
+  .wave:nth-child(10) {
+    animation-delay: 0.9s;
+  }
+  
+  @keyframes wave {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+
+  .container-fluid{
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+  
+  .container-fluid .mat-input-container {
+    width: 100%;
+  }
+  
+  .container-fluid .jumbotron {
+    border-radius: 0;
+    background-color: #ffffff;
+  }
+  
+  .container-fluid hr {
+    border-top: 1px solid #2196f3;
+  }
+  
+  .container-fluid .mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .container-fluid .login-card {
+    margin-top: 30px;
+  }
+  
+  .container-fluid .button--accent.mdl-button--accent.mdl-button--fab {
+    position: fixed;
+    bottom: 75px;
+    right: 25px;
+  }
+  
+  .mat-form-field {
+    width: 100%; 
+  }
+  
+  .mat-form-field-wrapper {
+    margin-bottom: 20px; 
+  }
+  
+  
+
+
+
+
+
+

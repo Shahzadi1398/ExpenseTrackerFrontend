@@ -1,0 +1,131 @@
+<h2 mat-dialog-title>Manage Expense</h2>
+
+<mat-dialog-content *ngIf="!update">
+    <div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label>Name</label>
+                <p>{{data.expensesName}}</p>
+            </div>
+
+            <div class="col-sm-4">
+                <label>Amount</label>
+                <p>{{data.amount}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label>Date</label>
+                <p>{{data.expenseDt | date:"mediumDate"}}</p>
+            </div>
+
+            <div class="col-sm-4">
+                <label>Payment Type</label>
+                <p>{{data.paymentCategory}}</p>
+            </div>
+
+            <div class="col-sm-4">
+                <label>Expense Type</label>
+                <p>{{data.expensesCategory}}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Comments </label>
+                <p>{{data.comment}}</p>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-content *ngIf="update">
+    <div class="row">
+        <div class="col-sm-6">
+            <mat-form-field>
+                <input matInput placeholder="Expense name" name="name" type="text" [(ngModel)]="expenseName"
+                       #name="ngModel" required minlength="4" [value]="expenseName" (input)="changesMade = true">
+            </mat-form-field>
+            <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+                <small>Name is required (minimum 4 characters).</small>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <mat-form-field>
+                <input matInput placeholder="Amount" type="number" min="1" name="amount" [(ngModel)]="amount"
+                       #amountInput="ngModel" required [value]="amount" (input)="changesMade = true">
+            </mat-form-field>
+            <div *ngIf="amountInput.errors && (amountInput.dirty || amountInput.touched)" class="alert alert-danger">
+                <small>Amount is required (positive amount, max 2 decimal places).</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 date-picker">
+            <div>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="expenseDate"
+                    name="date" #date="ngModel" required [value]="expenseDate" (dateChange)="changesMade = true">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker></mat-datepicker>                    
+                </mat-form-field>
+            </div>
+            <div *ngIf="date.errors && (date.dirty || date.touched)" class="alert alert-danger">
+                <small>
+                    Date is required.
+                </small>
+            </div>
+
+        </div>
+        <div class="col-sm-3">
+            <mat-form-field>
+                <mat-label>Expense category</mat-label>
+                <mat-select [(ngModel)]="expenseCategory" name="category" #category="ngModel" required (selectionChange)="changesMade = true">
+                    <mat-option *ngFor="let category of expensesDataList" [value]="expenseCategory">
+                        {{category.expensesName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div *ngIf="category.errors && (category.dirty || category.touched)" class="alert alert-danger">
+                <small>Category is required.</small>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <mat-form-field>
+                <mat-label>Payment type</mat-label>
+                <mat-select [(ngModel)]="paymentCategory" name="payment" #payment="ngModel" required (selectionChange)="changesMade = true">
+                    <mat-option *ngFor="let type of paymentDataList " [value]="paymentCategory">
+                        {{type.paymentName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div *ngIf="payment.errors && (payment.dirty || payment.touched)" class="alert alert-danger">
+                <small>Payment is required.</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <mat-form-field>
+                <textarea matInput placeholder="Comments" [(ngModel)]="expenseComments" name="comments" [value]="expenseComments" (input)="changesMade = true"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button type="button" mat-button color="primary" mat-dialog-close>Close</button>
+
+    <button type="button" *ngIf="!update" class="delete" mat-button color="warn" (click)="deleteExpense(data.uuidId)">Delete
+    </button>
+    <button type="button" *ngIf="!update" mat-raised-button color="primary" (click)="editData(data.uuidId)">Edit
+    </button>
+
+    <button type="button" *ngIf="update" class="delete" mat-button color="primary" (click)="reset()">Reset</button>
+    <button *ngIf="update" type="submit" mat-raised-button
+            color="primary" (click)="updateData(data.uuidId)" [disabled]="!changesMade">Update
+    </button>
+
+</mat-dialog-actions>

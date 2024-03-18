@@ -1,0 +1,27 @@
+<mat-toolbar>
+  <span>
+    <button mat-button [mat-menu-trigger-for]="menu" fxShow fxHide.gt-sm>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Expense Tracker</span>
+  </span>
+  <span class="toolbar-right">
+    <button mat-button (click)="toggleHomeIcon()">
+      <a mat-button>
+        <mat-icon class="icon1">{{ !isHome ? 'home' : 'account_balance_wallet' }}</mat-icon>
+        {{ !isHome ? 'Home' : 'View Expenses' }}
+      </a>
+    </button>
+           
+    <button mat-button (click)="logout()">
+      <mat-icon class="icon1">logout</mat-icon> Logout
+    </button>
+  </span>
+</mat-toolbar>
+
+<mat-menu x-position="before" #menu="matMenu">
+  <button mat-menu-item (click)="navigateToHome()">Home</button>
+  <button mat-menu-item (click)="navigateToViewExpenses()">View Expenses</button>    
+</mat-menu>
+
+<router-outlet></router-outlet>

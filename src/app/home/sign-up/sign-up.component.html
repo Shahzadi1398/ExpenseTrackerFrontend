@@ -1,0 +1,127 @@
+<div class="container-fluid">
+    <div class="container col-sm-12" *ngIf="loading == false">
+        <h1 class="display-3 text-center">Expense Tracker</h1>
+        <p class="lead text-center">Expense tracker is a simple application to help you keep track of your daily expenses.
+            Charts and tables help you better track spending behaviors.</p>
+        <hr>
+    </div>
+
+    <div class="login-card" *ngIf="loading == false">
+        <form #signupFormRef="ngForm" (ngSubmit)="signup(signupFormRef)">
+            <div class="row">
+                <div class="col-sm-6 offset-sm-3">
+                    <mat-card class="z-depth-5" style="height: auto;">
+                        <mat-card-title>Signup</mat-card-title>
+                        <mat-card-content>
+                            <div class="col-sm-12">
+                                <mat-form-field class="custom-outline" appearance="outline">
+                                    <input
+                                        autocomplete="off"
+                                        matInput
+                                        type="text"
+                                        placeholder="First Name"
+                                        name="firstName"
+                                        [(ngModel)]="firstName"
+                                        required
+                                        #firstNameInput="ngModel"
+                                    />                           
+                                </mat-form-field>
+                                <div *ngIf="firstNameInput.errors && (firstNameInput.dirty || firstNameInput.touched)"
+                                        class="alert alert-danger">
+                                    <small>First Name is required (minimum 2 characters).</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <mat-form-field class="custom-outline" appearance="outline">                
+                                    <input
+                                        autocomplete="off"
+                                        matInput
+                                        type="text"
+                                        placeholder="Last Name"
+                                        name="lastName"
+                                        [(ngModel)]="lastName"
+                                        required
+                                        #lastNameInput="ngModel"
+                                    />            
+                                </mat-form-field>
+                                <div *ngIf="lastNameInput.errors && (lastNameInput.dirty || lastNameInput.touched)"
+                                        class="alert alert-danger">
+                                    <small>Last Name is required (minimum 2 characters).</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <mat-form-field class="custom-outline" appearance="outline">                
+                                    <input
+                                        autocomplete="off"
+                                        matInput
+                                        type="text"
+                                        placeholder="Email"
+                                        name="email"
+                                        [(ngModel)]="email"
+                                        required
+                                        [email]="true"
+                                        #emailInput="ngModel"
+                                    />            
+                                </mat-form-field>
+                                <div *ngIf="emailInput.errors && (emailInput.dirty || emailInput.touched)"
+                                        class="alert alert-danger">
+                                    <small>Valid email is required.</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <mat-form-field class="custom-outline" appearance="outline">                    
+                                    <input
+                                        autocomplete="off"
+                                        matInput
+                                        type="password"
+                                        placeholder="Password"
+                                        name="password"
+                                        [(ngModel)]="password"
+                                        required
+                                        #passwordInput="ngModel"
+                                        minlength="6"
+                                    />                            
+                                </mat-form-field>
+                                <div *ngIf="passwordInput.errors && (passwordInput.dirty || passwordInput.touched)"
+                                        class="alert alert-danger">
+                                    <small>Password length must be 6 characters.</small>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <div class="row justify-content-center">
+                                <div class="col-sm-12">
+                                    <button
+                                    class="col-sm-12"
+                                    mat-button
+                                    [disabled]="!signupFormRef.valid || isSubmitting"
+                                    [ngClass]="{'enabled': signupFormRef.valid, 'disabled': !signupFormRef.valid}"
+                                    (click)="signup(signupFormRef)"
+                                    >Register</button>                                   
+                                </div>
+                                <div style="margin-top: 5px;">
+                                    To login <button class="click-here" (click)="showLoadingAndOpenSignup()">Click here</button>
+                                </div> 
+                            </div>                            
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>            
+        </form>
+    </div>
+
+    <div *ngIf="loading" class="loading-overlay">
+        <div class="center">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+          </div>
+    </div>
+</div>
